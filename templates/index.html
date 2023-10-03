@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form with Dropdowns and Inputs</title>
+    <style>
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group select,
+        .form-group input {
+            width: 150px;
+            padding: 8px;
+        }
+
+        .form-group label {
+            margin-right: 10px;
+        }
+
+
+        .textarea-container, .dropdown{
+            border: 1px solid transparent;
+            margin: 1rem;
+            padding: 2rem 2rem;
+        }
+
+        .input-code, .output-code, .drop1, .drop2{
+            display: inline-block;
+        }
+
+
+
+
+        textarea {
+            width: 200px;
+            height: 300px;
+            text-align: left;   
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="dropdown">
+            <div class="drop1">
+                <label for="dropdown1">Dropdown 1:</label>
+                <select id="dropdown1" name="dropdown1">
+                    <option value="option1">Python</option>
+                    <option value="option2">C++</option>
+                    <option value="option3">Java</option>
+                </select>
+            </div>
+            <div class="drop2">
+                <label for="dropdown2">Dropdown 2:</label>
+                <select id="dropdown2" name="dropdown2">
+                    <option value="optionA">Python</option>
+                    <option value="optionB">C++</option>
+                    <option value="optionC">Java</option>
+                </select>
+            </div>    
+        </div>
+            <div class="textarea-container">
+            <div class="input-code">
+                <textarea>
+                        Input code here
+                    </textarea>
+            </div>
+            <div class="output-code">
+                <textarea>
+                        Output code here
+                    </textarea>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
