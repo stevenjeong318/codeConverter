@@ -27,59 +27,64 @@
         }
 
 
-        .textarea-container, .dropdown{
+        .textarea-container,
+        .dropdown {
             border: 1px solid transparent;
             margin: 1rem;
             padding: 2rem 2rem;
         }
 
-        .input-code, .output-code, .drop1, .drop2{
+        .input-code,
+        .output-code,
+        .drop1,
+        .drop2 {
             display: inline-block;
         }
 
 
 
-
         textarea {
-            width: 200px;
-            height: 300px;
-            text-align: left;   
+            width: 400px;
+            height: 600px;
+            text-align: left;
         }
     </style>
 </head>
 
 <body>
+
     <div class="container">
-        <div class="dropdown">
-            <div class="drop1">
-                <label for="dropdown1">Dropdown 1:</label>
-                <select id="dropdown1" name="dropdown1">
-                    <option value="option1">Python</option>
-                    <option value="option2">C++</option>
-                    <option value="option3">Java</option>
-                </select>
+        <form method="POST" action="/">
+            <div class="dropdown">
+                <div class="drop1">
+                    <label for="dropdown1">Input Language:</label>
+                    <select id="dropdown1" name="dropdown1">
+                        <option value="Python">Python</option>
+                        <option value="C++">C++</option>
+                        <option value="Java">Java</option>
+                    </select>
+                </div>
+                <div class="drop2">
+                    <label for="dropdown2">Output Language:</label>
+                    <select id="dropdown2" name="dropdown2">
+                        <option value="Python">Python</option>
+                        <option value="C++">C++</option>
+                        <option value="Java">Java</option>
+                    </select>
+                    <input type="hidden" id="selected-option1-text" name="selected_option1_text">
+                    <input type="hidden" id="selected-option2-text" name="selected_option2_text">
+                </div>
             </div>
-            <div class="drop2">
-                <label for="dropdown2">Dropdown 2:</label>
-                <select id="dropdown2" name="dropdown2">
-                    <option value="optionA">Python</option>
-                    <option value="optionB">C++</option>
-                    <option value="optionC">Java</option>
-                </select>
-            </div>    
-        </div>
             <div class="textarea-container">
-            <div class="input-code">
-                <textarea>
-                        Input code here
-                    </textarea>
+                <div class="input-code">
+                    <textarea placeholder="Enter input code" name="input-code"></textarea>
+                </div>
+                <div class="output-code">
+                    <textarea readonly placeholder="Output code"></textarea>
+                </div>
             </div>
-            <div class="output-code">
-                <textarea>
-                        Output code here
-                    </textarea>
-            </div>
-        </div>
+            <button>Convert!</button>
+        </form>
     </div>
 </body>
 
