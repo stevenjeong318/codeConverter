@@ -55,7 +55,7 @@
 
     <div class="container">
         <button id="home">Home</button>
-        <form method="POST" action="/done">
+        <form method="POST" action="/">
             <div class="dropdown">
                 <div class="drop1">
                     <label for="dropdown1">Input Language:</label>
@@ -76,48 +76,60 @@
             </div>
             <div class="textarea-container">
                 <div class="input-code">
-                    <textarea placeholder="Enter input code" name="input-code"></textarea>
+                    <textarea name="input-code">{{ input_code }}</textarea>
                 </div>
                 <div class="output-code">
-                    <textarea readonly placeholder="Output code"></textarea>
+                    <textarea id="output-code" readonly placeholder="Output code">{{ output_code }}</textarea>
                 </div>
             </div>
-            <button type="submit">Convert!</button>
+            <button id="copy">Copy code!</button>
         </form>
+
     </div>
-
     <script>
-        var storedDropdownValue1 = localStorage.getItem('dropdown1');
-        var storedDropdownValue2 = localStorage.getItem('dropdown2');
+        // Set dropdown value from stored value
+        document.getElementById("dropdown1").value = '{{ in_code }}';
+        document.getElementById("dropdown2").value = '{{ out_code }}';
 
-        if (storedDropdownValue1) {
-            document.getElementById("dropdown1").value = storedDropdownValue1;
-        }
-        if (storedDropdownValue2) {
-            document.getElementById("dropdown2").value = storedDropdownValue2;
-        }
-
-        document.getElementById("dropdown1").addEventListener("change", function () {
-            var selectedOption1 = document.getElementById("dropdown1").value;
-        
-            localStorage.setItem('selectedDropdown1', selectedOption1);
-        });
-
-
-        document.getElementById("dropdown2").addEventListener("change", function () {
-            var selectedOption2 = document.getElementById("dropdown2").value;
-     
-            localStorage.setItem('selectedDropdown2', selectedOption1);
-        });
-        
         //reload index.html
         document.getElementById("home").addEventListener("click", function () {
-            window.location.reload();
+            //Return to home page
+            window.location.href = "/";
         });
 
+        //copy converted code
+        // Function to copy textarea content to clipboard and change button text
+        function copyText(event) {
+            event.preventDefault();
+            
+
+            // Get the textarea element by its ID
+            var textarea = document.getElementById("output-code");
+
+            // Select the text inside the textarea
+            textarea.select();
+
+            // Copy the selected text to the clipboard
+            document.execCommand("copy");
+
+            // Change button text to "Copied"
+            var copyButton = document.getElementById("copy");
+            copyButton.innerText = "Copied";
+
+            // Reset button text after 10 seconds
+            setTimeout(function () {
+                copyButton.innerText = "Copy Text";
+            }, 10000);
+
+        }
+
+        // Add click event listener to the button
+        var copyButton = document.getElementById("copy");
+        copyButton.addEventListener("click", copyText);
+
+
+
     </script>
-
-
 </body>
 
 </html>
