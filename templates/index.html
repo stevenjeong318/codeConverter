@@ -4,49 +4,47 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form with Dropdowns and Inputs</title>
+    <title>Code Converter!</title>
     <style>
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .home-button {
+            width: 100%;
+            height: 10%;
+            margin: 10px;
+            text-align: center;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group select,
-        .form-group input {
-            width: 150px;
-            padding: 8px;
-        }
-
-        .form-group label {
-            margin-right: 10px;
-        }
-
-
-        .textarea-container,
-        .dropdown {
-            border: 1px solid transparent;
-            margin: 1rem;
-            padding: 2rem 2rem;
+        .drop1,
+        .drop2 {
+            width: 49.5%;
+            height: 20%;
+            display: inline-block;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         .input-code,
-        .output-code,
-        .drop1,
-        .drop2 {
-            display: inline-block;
+        .output-code {
+            width: 100%;
+            height: 30%;
+            margin: 10px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
         }
 
+        #input-code,
+        #output-code {
+            width: 80vw;
+            height: 300px;
 
+        }
 
-        textarea {
-            width: 400px;
-            height: 600px;
-            text-align: left;
+        .submit-button {
+            width: 100%;
+            height: 10%;
+            margin: 10px;
+            text-align: center;
         }
     </style>
 </head>
@@ -54,7 +52,9 @@
 <body>
 
     <div class="container">
-        <button id="home">Home</button>
+        <div class="home-button">
+            <button id="home">Home</button>
+        </div>
         <form method="POST" action="/done">
             <div class="dropdown">
                 <div class="drop1">
@@ -76,40 +76,21 @@
             </div>
             <div class="textarea-container">
                 <div class="input-code">
-                    <textarea placeholder="Enter input code" name="input-code"></textarea>
+                    <textarea id="input-code" placeholder="Enter input code" name="input-code"></textarea>
                 </div>
                 <div class="output-code">
-                    <textarea readonly placeholder="Output code"></textarea>
+                    <textarea id="output-code" readonly placeholder="Output code"></textarea>
                 </div>
             </div>
-            <button type="submit">Convert!</button>
+            <div class="submit-button">
+                <button id="submit" type="submit">Convert!</button>
+            </div>
+
         </form>
     </div>
 
     <script>
-        var storedDropdownValue1 = localStorage.getItem('dropdown1');
-        var storedDropdownValue2 = localStorage.getItem('dropdown2');
 
-        if (storedDropdownValue1) {
-            document.getElementById("dropdown1").value = storedDropdownValue1;
-        }
-        if (storedDropdownValue2) {
-            document.getElementById("dropdown2").value = storedDropdownValue2;
-        }
-
-        document.getElementById("dropdown1").addEventListener("change", function () {
-            var selectedOption1 = document.getElementById("dropdown1").value;
-        
-            localStorage.setItem('selectedDropdown1', selectedOption1);
-        });
-
-
-        document.getElementById("dropdown2").addEventListener("change", function () {
-            var selectedOption2 = document.getElementById("dropdown2").value;
-     
-            localStorage.setItem('selectedDropdown2', selectedOption1);
-        });
-        
         //reload index.html
         document.getElementById("home").addEventListener("click", function () {
             window.location.reload();

@@ -4,57 +4,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form with Dropdowns and Inputs</title>
+    <title>Code converter!</title>
     <style>
-        .container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+        .home-button {
+            width: 100%;
+            height: 10%;
+            margin: 10px;
+            text-align: center;
         }
 
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        .form-group select,
-        .form-group input {
-            width: 150px;
-            padding: 8px;
-        }
-
-        .form-group label {
-            margin-right: 10px;
-        }
-
-
-        .textarea-container,
-        .dropdown {
-            border: 1px solid transparent;
-            margin: 1rem;
-            padding: 2rem 2rem;
+        .drop1,
+        .drop2 {
+            width: 49.5%;
+            height: 20%;
+            display: inline-block;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
         .input-code,
-        .output-code,
+        .output-code {
+            width: 100%;
+            height: 30%;
+            margin: 10px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
+
+        #input-code,
+        #output-code {
+            width: 80vw;
+            height: 300px;
+
+        }
+
+        .submit-button {
+            width: 100%;
+            height: 10%;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .home-button {
+            width: 100%;
+            height: 10%;
+            margin: 10px;
+            text-align: center;
+        }
+
         .drop1,
         .drop2 {
+            width: 49.5%;
+            height: 20%;
             display: inline-block;
+            margin-top: 10px;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
+        .input-code,
+        .output-code {
+            width: 100%;
+            height: 30%;
+            margin: 10px;
+            align-items: center;
+            justify-content: center;
+            display: flex;
+        }
 
+        #input-code,
+        #output-code {
+            width: 80vw;
+            height: 300px;
 
-        textarea {
-            width: 400px;
-            height: 600px;
-            text-align: left;
+        }
+
+        .copy-button {
+            width: 100%;
+            height: 10%;
+            margin: 10px;
+            text-align: center;
         }
     </style>
+
+    {% if bool %}
+    <script>
+        window.onload = function () {
+            alert("You cannot convert into same language!");
+            window.location.href = "/";
+        };
+    </script>
+    {% endif %}
+
+
 </head>
 
 <body>
 
     <div class="container">
-        <button id="home">Home</button>
+        <div class="home-button">
+            <button id="home">Home</button>
+        </div>
         <form method="POST" action="/">
             <div class="dropdown">
                 <div class="drop1">
@@ -76,20 +128,25 @@
             </div>
             <div class="textarea-container">
                 <div class="input-code">
-                    <textarea name="input-code">{{ input_code }}</textarea>
+                    <textarea id="input-code" name="input-code">{{ input_code }}</textarea>
                 </div>
                 <div class="output-code">
                     <textarea id="output-code" readonly placeholder="Output code">{{ output_code }}</textarea>
                 </div>
             </div>
-            <button id="copy">Copy code!</button>
+            <div class="copy-button">
+                <button id="copy">Copy code!</button>
+            </div>
         </form>
 
     </div>
     <script>
-        // Set dropdown value from stored value
-        document.getElementById("dropdown1").value = '{{ in_code }}';
-        document.getElementById("dropdown2").value = '{{ out_code }}';
+        //update dropdown value of result.html, retreiving from app.py
+        var dropdown1Value = "{{ in_opt }}";
+        var dropdown2Value = "{{ out_opt }}";
+        document.getElementById("dropdown1").value = dropdown1Value;
+        document.getElementById("dropdown2").value = dropdown2Value;
+
 
         //reload index.html
         document.getElementById("home").addEventListener("click", function () {
@@ -101,7 +158,7 @@
         // Function to copy textarea content to clipboard and change button text
         function copyText(event) {
             event.preventDefault();
-            
+
 
             // Get the textarea element by its ID
             var textarea = document.getElementById("output-code");
