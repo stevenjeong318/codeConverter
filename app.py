@@ -1,27 +1,25 @@
 from flask import Flask
 from flask import render_template
 from flask import request
-from flask import flash
-
 
 app = Flask(__name__)
 
-@app.route('/', methods=['GET', 'POST'])
+
+@app.route('/', methods=['GET'])
 def home():
     return render_template('index.html')
 
 
 @app.route('/done', methods=['GET', 'POST'])
 def result():
-    in_lang = request.form['dropdown1']
-    in_opt = request.args.get('stored_dropdown_value1', default=None)
-    out_lang = request.form['dropdown2']
-    out_opt = request.args.get('stored_dropdown_value2', default=None)
+    dropdown1_value = request.form.get('dropdown1')
+    dropdown2_value = request.form.get('dropdown2')
+    same_value = dropdown1_value == dropdown2_value
     code = request.form['input-code']
-    s= f"Convert \n {code} \n from {in_lang} to {out_lang}"
-    print(s)
-    return render_template('result.html', in_code = in_opt, out_code = out_opt, input_code = code, output_code = s)
-    
+    s = f"Convert \n {code} \n from {dropdown1_value} to {dropdown2_value}"
+    print(dropdown1_value, dropdown2_value)
+    return render_template('result.html', bool=same_value, in_opt=dropdown1_value, out_opt=dropdown2_value, input_code=code, output_code=s)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
