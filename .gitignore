@@ -1,1 +1,2 @@
+#This keeps config.json(which contains openai_api_key) file being tracked to git
 config.json
