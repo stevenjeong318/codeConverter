@@ -37,6 +37,7 @@
         #output-code {
             width: 80vw;
             height: 300px;
+            overflow-y: auto;
 
         }
 
@@ -63,6 +64,7 @@
                         <option value="Python">Python</option>
                         <option value="C++">C++</option>
                         <option value="Java">Java</option>
+                        <option value="Javascript">Javascript</option>
                     </select>
                 </div>
                 <div class="drop2">
@@ -71,12 +73,16 @@
                         <option value="Python">Python</option>
                         <option value="C++">C++</option>
                         <option value="Java">Java</option>
+                        <option value="Javascript">Javascript</option>
                     </select>
                 </div>
             </div>
             <div class="textarea-container">
                 <div class="input-code">
-                    <textarea id="input-code" placeholder="Enter input code" name="input-code"></textarea>
+                    <input type="file" id="fileInput" style="display:none;" />
+                    <textarea id="input-code"
+                        placeholder="Enter input code or Upload the code (.py, .java, .cpp, .js) by clicking the box or dragging file on to it"
+                        name="input-code"></textarea>
                 </div>
                 <div class="output-code">
                     <textarea id="output-code" readonly placeholder="Output code"></textarea>
@@ -91,10 +97,75 @@
 
     <script>
 
-        //reload index.html
+        //reload index.html when home button clicked
         document.getElementById("home").addEventListener("click", function () {
             window.location.reload();
         });
+
+        //allow file upload on input code
+        const fileInput = document.getElementById('fileInput');
+        const textarea = document.getElementById('input-code');
+
+        // Handle file drop event
+        textarea.addEventListener('drop', (event) => {
+            event.preventDefault();
+            const file = event.dataTransfer.files[0];
+
+            // Check if the file has a valid extension
+            if (isFileValid(file)) {
+                // Read the file contents
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Set the textarea value to the file contents
+                    textarea.value = e.target.result;
+                };
+                reader.readAsText(file);
+            } else {
+                alert('Invalid file type. Only .py and .java files are allowed.');
+            }
+        });
+
+        // Prevent default behavior for drag and drop events
+        textarea.addEventListener('dragover', (event) => {
+            event.preventDefault();
+        });
+
+        textarea.addEventListener('dragenter', (event) => {
+            event.preventDefault();
+        });
+
+        // Open file dialog when textarea is clicked
+        textarea.addEventListener('click', () => {
+            fileInput.click();
+        });
+
+        // Handle file selection using the file input
+        fileInput.addEventListener('change', (event) => {
+            const file = event.target.files[0];
+
+            // Check if the file has a valid extension
+            if (isFileValid(file)) {
+                // Read the file contents
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    // Set the textarea value to the file contents
+                    textarea.value = e.target.result;
+                };
+                reader.readAsText(file);
+            } else {
+                alert('Invalid file type. Only .py and .java files are allowed.');
+            }
+        });
+
+        // Function to check if the file has a valid extension
+        function isFileValid(file) {
+            const allowedExtensions = ['.py', '.java', '.cpp', '.js'];
+            const fileName = file.name;
+            const fileExtension = fileName.slice(((fileName.lastIndexOf(".") - 1) >>> 0) + 2);
+
+            return allowedExtensions.includes('.' + fileExtension.toLowerCase());
+        }
+
 
     </script>
 

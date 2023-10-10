@@ -6,6 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code converter!</title>
     <style>
+        .loading-spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left: 4px solid #3498db;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 2s linear infinite;
+            margin: 0 auto;
+            margin-top: 20px;
+            display: none;
+            /* Hide the spinner by default */
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
         .home-button {
             width: 100%;
             height: 10%;
@@ -91,6 +114,9 @@
 
     {% if bool %}
     <script>
+        //pop-up if input and output are same
+        //put script tag in head to check variable before result.html is loaded
+        //reload index.html (endpoint /)
         window.onload = function () {
             alert("You cannot convert into same language!");
             window.location.href = "/";
@@ -115,6 +141,7 @@
                         <option value="Python">Python</option>
                         <option value="C++">C++</option>
                         <option value="Java">Java</option>
+                        <option value="Javascript">Javascript</option>
                     </select>
                 </div>
                 <div class="drop2">
@@ -123,9 +150,11 @@
                         <option value="Python">Python</option>
                         <option value="C++">C++</option>
                         <option value="Java">Java</option>
+                        <option value="Javascript">Javascript</option>
                     </select>
                 </div>
             </div>
+            <div class="loading-spinner"></div>
             <div class="textarea-container">
                 <div class="input-code">
                     <textarea id="input-code" name="input-code">{{ input_code }}</textarea>
@@ -141,21 +170,39 @@
 
     </div>
     <script>
-        //update dropdown value of result.html, retreiving from app.py
+
+        document.addEventListener("DOMContentLoaded", function () {
+            var loadingSpinner = document.querySelector('.loading-spinner');
+
+            // Show loading spinner when the form is submitted
+            document.querySelector('form').addEventListener('submit', function () {
+                loadingSpinner.style.display = 'block';
+            });
+
+            // Hide loading spinner when the response is received
+            // This assumes you have an element with id "output-code" where the API response is displayed
+            document.getElementById('output-code').addEventListener('input', function () {
+                loadingSpinner.style.display = 'none';
+            });
+        });
+
+
+
+        //update dropdown value of result.html, get values from app.py
         var dropdown1Value = "{{ in_opt }}";
         var dropdown2Value = "{{ out_opt }}";
         document.getElementById("dropdown1").value = dropdown1Value;
         document.getElementById("dropdown2").value = dropdown2Value;
 
 
-        //reload index.html
+        //reload index.html (endpoint /)if home button clicked
         document.getElementById("home").addEventListener("click", function () {
-            //Return to home page
             window.location.href = "/";
         });
 
-        //copy converted code
-        // Function to copy textarea content to clipboard and change button text
+
+        //Copy code
+        //Function to copy textarea content to clipboard and change button text
         function copyText(event) {
             event.preventDefault();
 
@@ -173,18 +220,16 @@
             var copyButton = document.getElementById("copy");
             copyButton.innerText = "Copied";
 
-            // Reset button text after 10 seconds
+            // Reset button text after 5 seconds
             setTimeout(function () {
                 copyButton.innerText = "Copy Text";
-            }, 10000);
+            }, 5000);
 
         }
 
-        // Add click event listener to the button
+        // Add function copyText click event listener to the button
         var copyButton = document.getElementById("copy");
         copyButton.addEventListener("click", copyText);
-
-
 
     </script>
 </body>
