@@ -5,7 +5,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Converter!</title>
+    <!--below stylesheet is for spinner-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        .loading-spinner {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+
         .home-button {
             width: 100%;
             height: 10%;
@@ -21,6 +30,10 @@
             margin-top: 10px;
             margin-bottom: 10px;
             text-align: center;
+        }
+
+        .output-code {
+            position: relative;
         }
 
         .input-code,
@@ -86,16 +99,33 @@
                 </div>
                 <div class="output-code">
                     <textarea id="output-code" readonly placeholder="Output code"></textarea>
+                    <div class="loading-spinner" style="display: none;">
+                        <i class="fa fa-spinner fa-spin"></i> Loading...
+                    </div>
                 </div>
             </div>
             <div class="submit-button">
                 <button id="submit" type="submit">Convert!</button>
             </div>
-
         </form>
     </div>
 
     <script>
+        document.querySelector('form').addEventListener('submit', function () {
+            // Show the loading spinner when the form is submitted
+            document.querySelector('.loading-spinner').style.display = 'block';
+        });
+
+        // Assuming you are using an asynchronous request (e.g., AJAX) to handle form submission
+        // Hide the spinner when the response is received (adjust this logic based on your implementation)
+        function handleResponse(response) {
+            // Process the response here
+
+            // Hide the loading spinner after processing the response
+            document.querySelector('.loading-spinner').style.display = 'none';
+        }
+
+
 
         //reload index.html when home button clicked
         document.getElementById("home").addEventListener("click", function () {
