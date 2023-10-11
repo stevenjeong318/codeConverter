@@ -14,20 +14,23 @@
  * Check input language and output language are same. If so, show pop-up and reload index.html (10/6)
  * Save dropdown options from index.html, show on result.html (10/6)
  * Use gpt api to convert code (10/7)
+ * write/edit comments (10/7)
  * Make it more nicer (Bootstrap, etc)
  * Replace home button into some kind of logo image.
- * write/edit comments (10/7)
+ * Allow user to upload file as a input.
+ * Input section into code editor
+ * Deploy it
 
 
-4. Skills
+4. Skill sets used
  * Flask (Python)
  * HTML / CSS
  * Javascript
  * API
- * Bootstrap
- * Jinja2
+ * Jinja
+ * json 
+ * Heroku
+
 
  5. What did I learn from this project?
-
- 6. What can I do more on this project?
  
