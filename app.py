@@ -3,11 +3,12 @@ from flask import render_template
 from flask import request
 import openai
 import json
+import os
 
 app = Flask(__name__)
 
 #load api keys from json file
-with open('config.json', 'r') as config_file:
+with open('key.json', 'r') as config_file:
     data = json.load(config_file)
 openai.api_key = data['openai_api_key']
 
