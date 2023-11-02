@@ -7,10 +7,8 @@ import os
 
 app = Flask(__name__)
 
-#load api keys from json file
-with open('key.json', 'r') as config_file:
-    data = json.load(config_file)
-openai.api_key = data['openai_api_key']
+#load api keys from environment
+openai.api_key = os.getenv("API_KEY")
 
 #serves home page
 @app.route('/', methods=['GET'])
